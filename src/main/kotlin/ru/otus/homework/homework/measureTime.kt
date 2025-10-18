@@ -1,7 +1,7 @@
 package ru.otus.homework.homework
 
 fun main() {
-    val time = measureTime()
+    val time = measureTime { longRunningTask() }
     println("Measured time: $time ms")
 }
 
@@ -9,6 +9,9 @@ fun longRunningTask() {
     Thread.sleep(1000)
 }
 
-fun measureTime(): Long {
-    TODO("Implement `measureTime`")
+fun measureTime(block: () -> Unit): Long {
+    val startTime = System.currentTimeMillis()
+    block()
+    val endTime = System.currentTimeMillis()
+    return endTime - startTime
 }
